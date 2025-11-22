@@ -21,11 +21,13 @@ Diese Sektion dokumentiert die technische Infrastruktur, Einrichtung und Adminis
 ## Dokumentation
 
 ### Einrichtung & Konfiguration
+
 - [Server Einrichtung](/admin/server-einrichtung) - Initiale Installation und Setup
 - [Zugriffskontrolle](/admin/zugriffskontrolle) - Berechtigungen und Sicherheit
 - [Backups](/admin/backups) - Backup-Konfiguration und -Verwaltung
 
 ### Services
+
 - [Tailscale](/admin/tailscale) - VPN-Netzwerk Server-Installation
 - [Immich](/admin/immich-setup) - Foto-Management Server-Setup
 - [Jellyfin](/admin/jellyfin-setup) - Media-Server Setup
@@ -42,16 +44,18 @@ Um mit der Administration des Servers zu beginnen:
 ## Wartung
 
 **Täglich (automatisiert):**
+
 - Backups werden automatisch täglich ausgeführt
 - Backup-Status wird auf healthchecks.io gemeldet
 
 **Wöchentlich:**
+
 - Docker Container Status prüfen (`ds`)
 
 **Monatlich:**
+
 - Speicherplatz prüfen (`df -h`)
 - [Backup-Integrität](./backups#überwachung) testen
 - Anwendungen auf neueste Versionen aktualisieren
   - Docker: `docker compose pull && docker compose up -d`
   - Apt: `sudo apt update && sudo apt upgrade -y`
-

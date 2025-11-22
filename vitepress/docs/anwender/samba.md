@@ -29,6 +29,7 @@ Wichtige Dateien auf dem Server werden automatisch gesichert. Trotzdem solltest 
 
 :::tip Verbindungsgeschwindigkeit
 Die Geschwindigkeit hängt von deiner Internetverbindung ab:
+
 - Im gleichen WLAN: Sehr schnell
 - Über Tailscale von außerhalb: Abhängig von der Upload-Geschwindigkeit des Servers und deiner Download-Geschwindigkeit
 :::
@@ -36,6 +37,7 @@ Die Geschwindigkeit hängt von deiner Internetverbindung ab:
 ## Häufige Fragen
 
 ### Ich kann keine Verbindung herstellen - was tun?
+
 1. Stelle sicher, dass du mit Tailscale verbunden bist
 2. Überprüfe, ob du die richtige Serveradresse verwendest (`beelink` oder `smb://beelink`)
 3. Kontrolliere deine Zugangsdaten
@@ -43,10 +45,13 @@ Die Geschwindigkeit hängt von deiner Internetverbindung ab:
 5. Falls das Problem weiterhin besteht, wende dich an einen Administrator
 
 ### Kann ich offline auf die Dateien zugreifen?
+
 Nein, du benötigst eine aktive Tailscale-Verbindung. Wenn du Dateien offline benötigst, kopiere sie vorher auf dein lokales Gerät.
 
 ### Werden meine Änderungen sofort für alle sichtbar?
+
 Ja, Änderungen werden direkt auf dem Server gespeichert und sind sofort für alle anderen Nutzer sichtbar, sofern sie die notwendigen Berechtigungen haben.
 
 ### Wie viel Speicherplatz habe ich?
+
 Ausreichend, der Speicherplatz wird gemeinsam genutzt. Bei Fragen zum verfügbaren Speicher wende dich an einen Administrator.

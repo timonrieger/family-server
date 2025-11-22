@@ -16,7 +16,7 @@ Nach der Installation empfohlenes Storage Template setzen:
 2. **Administration** → **Server Settings** → **Storage Template**
 3. Template eintragen:
 
-```
+```txt
 {{y}}/{{MM}}/{{dd}}/{{filename}}
 ```
 
@@ -26,7 +26,7 @@ Dies organisiert Uploads nach Jahr/Monat/Tag und erleichtert die Verwaltung.
 
 Die Immich-Daten sind wie folgt organisiert:
 
-```
+```txt
 /srv/media/immich/
 ├── upload/          # Immich Standard-Upload-Verzeichnis
 └── library/

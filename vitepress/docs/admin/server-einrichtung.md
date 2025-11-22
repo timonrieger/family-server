@@ -28,7 +28,7 @@ sudo dd if=$HOME/Downloads/debian-13.1.0-amd64-netinst.iso of=/dev/rdisk6 bs=4m 
 # USB auswerfen
 diskutil eject /dev/disk6
 ```
-
+<!-- markdownlint-disable MD029 -->
 5. USB-Stick in USB Port des Mini-PCs stecken
 6. Stromkabel anschließen und verbinden
 
@@ -89,14 +89,6 @@ beelink ansible_user=<dein-username>
 ansible beelink -m ping -i inventory.ini
 ```
 
-Erwartete Ausgabe:
-```
-beelink | SUCCESS => {
-    "changed": false,
-    "ping": "pong"
-}
-```
-
 ### 6. Server einrichten
 
 ```bash
@@ -149,4 +141,3 @@ sudo -u restic restic -r rclone:storj:bucket/path forget --keep-daily 30 --prune
 - [Immich einrichten](/admin/immich-setup)
 - [Jellyfin konfigurieren](/admin/jellyfin-setup)
 - [Samba Freigaben verwalten](/admin/samba-setup)
-

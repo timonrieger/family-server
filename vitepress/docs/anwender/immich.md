@@ -9,6 +9,7 @@ Du musst mit [Tailscale verbunden](/anwender/tailscale) sein, um auf Immich zugr
 :::
 
 **Im Browser:**
+
 - [http://beelink:2283](http://beelink:2283)
 - [http://beelink.tail12bab0.ts.net:2283](http://beelink.tail12bab0.ts.net:2283)
 
@@ -41,7 +42,6 @@ Damit das Backup zuverlässig im Hintergrund läuft, solltest du zwei Einstellun
 Mit diesen Einstellungen werden deine Fotos automatisch gesichert, ohne dass du die App öffnen musst.
 :::
 
-
 ## Tipps & Tricks
 
 :::warning Hinweis zu geteilten Bibliotheken
@@ -55,14 +55,17 @@ Nachdem deine Fotos auf den Server hochgeladen wurden, kannst du sie vom Smartph
 ## Häufige Fragen
 
 ### Werden meine Fotos gelöscht, wenn ich sie vom Handy lösche?
+
 Nein. Fotos, die bereits auf den Server hochgeladen wurden, bleiben dort gespeichert, auch wenn du sie lokal löschst.
 
 ### Kann ich Fotos auch über den Browser hochladen?
+
 Ja, in der Web-Version kannst du über den **Upload-Button** Fotos von deinem Computer hochladen.
 
 ### Wie viel Speicherplatz habe ich?
+
 Der Speicherplatz wird gemeinsam genutzt. Bei Fragen zum verfügbaren Speicher wende dich an einen Administrator.
 
 ### Was passiert, wenn ich nicht mit Tailscale verbunden bin?
-Ohne Tailscale-Verbindung kannst du nicht auf Immich zugreifen. Deine Fotos werden dann nicht automatisch gesichert.
 
+Ohne Tailscale-Verbindung kannst du nicht auf Immich zugreifen. Deine Fotos werden dann nicht automatisch gesichert.

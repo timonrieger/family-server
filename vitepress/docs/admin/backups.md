@@ -1,6 +1,7 @@
 # Backups
 
 Das Backup-System basiert auf drei Komponenten:
+
 - **[Restic](https://restic.readthedocs.io/)** - Backup-Software mit Verschlüsselung und Deduplizierung
 - **[Rclone](https://rclone.org/)** - Schnittstelle zu Cloud-Speicher
 - **[Storj](https://www.storj.io/)** - Dezentraler Cloud-Speicher-Anbieter
@@ -8,16 +9,20 @@ Das Backup-System basiert auf drei Komponenten:
 ## Übersicht
 
 **Was wird gesichert:**
+
 - Der gesamte Server, bis auf die System-Dateien
 
 **Was wird NICHT gesichert:**
+
 - System-Dateien - bei Bedarf neu aufsetzen
 
 **Backup-Zeitplan:**
+
 - Täglich um 03:00 Uhr (automatisch via Cron)
 - Retention: unbegrenzt
 
 **Monitoring:**
+
 - [Healthchecks.io](https://healthchecks.io/) überwacht Backup-Erfolg
 - Badge auf [Admin-Übersicht](/admin/index) zeigt Status
 
@@ -30,6 +35,7 @@ Für detaillierte Restic-Befehle siehe die [offizielle Restic-Dokumentation](htt
 ### Rclone Konfiguration
 
 Die Rclone-Konfiguration liegt unter:
+
 - Auf dem Server: `~/.config/rclone/rclone.conf`
 - Im Repository: `ansible/files/rclone.conf`
 
@@ -80,6 +86,7 @@ Falls der Server komplett neu aufgesetzt werden muss oder einzelne Daten wiederh
 ### Einzelne Services wiederherstellen
 
 **Bei Datenverlust oder Korruption:**
+
 1. Betroffenen Container stoppen
 2. Mit Restic spezifische Pfade wiederherstellen (z.B. `/srv/media/immich` oder `/srv/docker`)
 3. Berechtigungen prüfen/korrigieren

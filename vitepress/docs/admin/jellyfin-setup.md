@@ -10,7 +10,7 @@ Für Installation, Bibliotheken, Benutzer-Verwaltung, Plugins und Troubleshootin
 
 Die Jellyfin-Medien sind wie folgt organisiert:
 
-```
+```txt
 /srv/media/family/
 ├── movies/          # Filme
 ├── series/          # Serien
@@ -20,6 +20,7 @@ Die Jellyfin-Medien sind wie folgt organisiert:
 **Dateinamen-Konventionen:**
 
 Für optimale Metadaten-Erkennung folge den Jellyfin Naming Conventions:
+
 - [Filme](https://jellyfin.org/docs/general/server/media/movies)
 - [Serien](https://jellyfin.org/docs/general/server/media/shows)
 - [Musik](https://jellyfin.org/docs/general/server/media/music)

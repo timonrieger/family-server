@@ -9,6 +9,7 @@ Du musst mit [Tailscale verbunden](/anwender/tailscale) sein, um auf Jellyfin zu
 :::
 
 **Im Browser:**
+
 - [http://beelink:8096](http://beelink:8096)
 - [http://beelink.tail12bab0.ts.net:8096](http://beelink.tail12bab0.ts.net:8096)
 
@@ -27,20 +28,25 @@ Falls du noch keine Zugangsdaten hast, wende dich an einen Administrator, um ein
 ## Häufige Fragen
 
 ### Kann ich Filme und Serien auch herunterladen?
+
 Ja, in den mobilen Apps kannst du Inhalte für offline herunterladen.
 
 ### Warum ruckelt das Video?
+
 Das kann verschiedene Gründe haben:
+
 - Schwache Internetverbindung: Reduziere die Qualität in den Einstellungen
 - Server überlastet: Versuche es später noch einmal
 - Kontaktiere einen Administrator, wenn das Problem weiterhin besteht
 
 ### Wie kann ich neue Filme oder Serien hinzufügen?
+
 Das Hinzufügen von Inhalten ist Aufgabe der Administratoren. Du kannst aber gerne Wünsche äußern!
 
 ### Werden meine Daten mit anderen Nutzern geteilt?
+
 Nein, dein Wiedergabeverlauf und deine Favoriten sind privat und nur für dich sichtbar.
 
 ### Kann ich Jellyfin ohne Tailscale nutzen?
-Nein, für den Zugriff auf Jellyfin muss du mit Tailscale verbunden sein.
 
+Nein, für den Zugriff auf Jellyfin muss du mit Tailscale verbunden sein.

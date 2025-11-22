@@ -14,6 +14,7 @@ Samba ermöglicht dir den Zugriff auf die Dateien des Servers über das Netzwerk
 6. Wähle die gewünschte Freigabe aus
 
 **Automatisch verbinden:**
+
 - Nach erfolgreicher Verbindung erscheint der Server in der Finder-Seitenleiste
 - Du kannst ihn zu den Anmeldeobjekten hinzufügen (Systemeinstellungen → Benutzer & Gruppen → Anmeldeobjekte)
 
@@ -26,4 +27,3 @@ Samba ermöglicht dir den Zugriff auf die Dateien des Servers über das Netzwerk
 5. Tippe auf **Verbinden**
 6. Gib deine Anmeldedaten ein
 7. Der Server erscheint unter "Geteilt" in der Seitenleiste
-

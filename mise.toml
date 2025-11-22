@@ -1,5 +1,4 @@
 [tools]
-ruby = "3"
 uv = "0.9"
 
 [tasks.lint]

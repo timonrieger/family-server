@@ -18,18 +18,22 @@ Du kannst nur auf den Server und alle darauf liegenden Services (Immich, Jellyfi
 ### Verbindung aktivieren
 
 **iPhone/iPad:**
+
 - Öffne die Tailscale App und tippe auf **Connect**
 - Alternativ: Gehe zu **Einstellungen** → **VPN** → **Tailscale** und aktiviere die Verbindung
 
 **Mac:**
+
 - Klicke auf das Tailscale-Symbol in der Menüleiste
 - Wähle **Connect to Tailscale**
 
 **Windows:**
+
 - Klicke auf das Tailscale-Symbol in der Taskleiste
 - Wähle **Connect**
 
 **Android:**
+
 - Öffne die Tailscale App und tippe auf **Connect**
 
 ### Verbindung trennen
@@ -45,22 +49,26 @@ Du musst Tailscale nur dann aktivieren, wenn du auf unsere Services zugreifen m�
 Ein Exit Node routet deinen gesamten Internetverkehr über unseren Server. Das ist besonders nützlich in öffentlichen WLANs (Cafés, Flughäfen), da dein Datenverkehr dann verschlüsselt und sicher ist.
 
 **Wann solltest du einen Exit Node nutzen?**
+
 - In öffentlichen, ungesicherten WLAN-Netzwerken
 - Wenn du zusätzliche Privatsphäre möchtest
 
 **Wann ist ein Exit Node NICHT notwendig?**
+
 - Zuhause im eigenen WLAN
 - Bei der normalen Nutzung von mobilem Internet
 
 ### Exit Node aktivieren
 
 **iPhone/iPad:**
+
 1. Öffne die Tailscale App
 2. Tippe auf die **drei Punkte** (···) neben "beelink"
 3. Wähle **Use as exit node**
 4. Aktiviere optional **Allow LAN access** um weiterhin auf lokale Geräte zugreifen zu können
 
 **Mac/Windows:**
+
 1. Klicke auf das Tailscale-Symbol
 2. Wähle **Exit Node** → **beelink**
 3. Optional: Aktiviere **Allow LAN access**
@@ -86,4 +94,3 @@ Mit diesen Einstellungen verbindet sich Tailscale automatisch, sodass Immich dei
 :::info Hinweis
 Wenn du keine automatischen Backups nutzt, ist VPN on Demand nicht notwendig. Du kannst Tailscale dann einfach manuell aktivieren, wenn du auf den Server zugreifen möchtest.
 :::
-
