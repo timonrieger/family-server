@@ -18,20 +18,6 @@ Diese Sektion dokumentiert die technische Infrastruktur, Einrichtung und Adminis
   - [Jellyfin](https://jellyfin.org/) (Filme, Serien, Musik)
   - [Samba](https://www.samba.org/) (Dateifreigabe)
 
-## Dokumentation
-
-### Einrichtung & Konfiguration
-
-- [Server Einrichtung](/admin/server-einrichtung) - Initiale Installation und Setup
-- [Zugriffskontrolle](/admin/zugriffskontrolle) - Berechtigungen und Sicherheit
-- [Backups](/admin/backups) - Backup-Konfiguration und -Verwaltung
-
-### Services
-
-- [Tailscale](/admin/tailscale) - VPN-Netzwerk Server-Installation
-- [Immich](/admin/immich-setup) - Foto-Management Server-Setup
-- [Jellyfin](/admin/jellyfin-setup) - Media-Server Setup
-- [Samba](/admin/samba-setup) - Dateifreigabe Konfiguration
 
 ## Schnellstart
 

@@ -55,7 +55,7 @@ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.ta
 
 ```bash
 git clone https://github.com/timonrieger/family-server.git
-cd family-server/ansible
+cd family-server
 ```
 
 ### 2. Konfigurationsdateien vorbereiten
@@ -86,6 +86,7 @@ beelink ansible_user=<dein-username>
 ### 5. Verbindung testen
 
 ```bash
+cd ansible
 ansible beelink -m ping -i inventory.ini
 ```
 
@@ -108,36 +109,3 @@ ansible-playbook -i inventory.ini setup-permissions.yaml --ask-become-pass
 ```
 
 Mehr Details: [Zugriffskontrolle](/admin/zugriffskontrolle)
-
-## Wartung
-
-### System Updates
-
-```bash
-# Regelmäßig ausführen
-sudo apt update && sudo apt upgrade -y
-```
-
-### Docker Updates
-
-```bash
-# Images aktualisieren
-cd /srv/docker/<service>
-docker compose pull
-docker compose up -d
-```
-
-### Backup-Wartung
-
-```bash
-# Alte Snapshots bereinigen (behalte letzte 30 Tage)
-sudo -u restic restic -r rclone:storj:bucket/path forget --keep-daily 30 --prune
-```
-
-## Nächste Schritte
-
-- [Zugriffskontrolle konfigurieren](/admin/zugriffskontrolle)
-- [Backup-Strategie verstehen](/admin/backups)
-- [Immich einrichten](/admin/immich-setup)
-- [Jellyfin konfigurieren](/admin/jellyfin-setup)
-- [Samba Freigaben verwalten](/admin/samba-setup)
