@@ -61,12 +61,14 @@ cd family-server/ansible
 ### 2. Konfigurationsdateien vorbereiten
 
 ```bash
-# Beispieldateien kopieren
-cp files/rclone.conf.example files/rclone.conf
-cp files/backup.sh.example files/backup.sh
+# Alle Beispieldateien zu Konfigurationsdateien kopieren
+find . -name "*.example" -type f | while read example_file; do
+  config_file="${example_file%.example}"
+  cp "$example_file" "$config_file"
+done
 ```
 
-Passe alle `REPLACE-ME` Platzhalter in diesen Dateien mit den richtigen Werten an.
+Passe alle `REPLACE-ME` Platzhalter in den kopierten Dateien mit den richtigen Werten an.
 
 ### 3. Tailscale einrichten
 

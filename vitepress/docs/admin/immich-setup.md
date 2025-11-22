@@ -37,7 +37,7 @@ Die Immich-Daten sind wie folgt organisiert:
 ```
 
 - Die Ordner unter `/srv/media/family/photos` werden als [External Library](https://immich.app/docs/features/libraries) in Immich eingebunden
-- Jeder Benutzer hat **Lesezugriff** auf die Bibliotheken über [Samba](/admin/samba)
+- Jeder Benutzer hat **Lesezugriff** auf die Bibliotheken über Samba
 - **Fotos können nur über die Immich-UI hochgeladen werden** - Samba ist read-only konfiguriert
 
 ## Updates
