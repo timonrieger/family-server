@@ -1,51 +1,40 @@
 # Family Server
 
-## Ansible
+This repository contains the infrastructure and documentation for a self-hosted family server.
+
+## Repository content
+
+### Ansible Playbooks (`ansible/`)
+- `setup-server.yaml` - basic server configuration (Docker, Tailscale, Fish Shell)
+- `setup-permissions.yaml` - file permissions and Samba configuration
+- `setup-backups.yaml` - Backup system (Restic, Rclone)
+- `files/` - configuration files (Samba, Rclone, backup scripts)
+
+### Docker configurations (`docker/`)
+- `immich/` - Immich Docker Compose
+- `jellyfin/` - Jellyfin Docker Compose
+- `caddy/` - Caddy reverse proxy with Dockerfile
+
+### Documentation (`vitepress/`)
+- VitePress-based documentation
+- Admin documentation (`docs/admin/`)
+- User documentation (`docs/user/`)
+
+## Start VitePress
+
+The documentation is provided with VitePress. How to start the local development server:
 
 ```bash
-cd ansible
-ansible-playbook -i inventory.ini setup_server.yaml --ask-become-pass
+mise docs
 ```
 
-## System File Structure
+The documentation can then be accessed at `http://localhost:5173`.
 
-Shared files are stored in `/srv`.
-chown -R timon:timon → make timon the owner of everything
-chmod -R 775 → owner & group can fully read/write/execute, everyone else can only read/execute.
+## Setup
 
-Configuration for samba is stored in `/etc/samba/smb.conf`.
+For the initial setup of the project:
+
 ```bash
-sudo nano /etc/samba/smb.conf
+mise setup
 ```
 
-To allow users to access the samba share, give them a password.
-```bash
-sudo smbpasswd -a timon
-```
-
-To restart the samba service, run:
-```bash
-sudo systemctl restart smbd
-```
-
-## Tailscale
-
-Tailscale is installed to provide secure, zero-config VPN access to the server from anywhere. It creates a mesh VPN network that allows you to access the server remotely without exposing ports or configuring complex firewall rules.
-
-After the server is provisioned, Tailscale needs to be authenticated:
-```bash
-sudo tailscale up
-sudo tailscale status
-```
-
-This will provide a URL to authenticate via your Tailscale account.
-
-The server will automatically join your Tailscale network.
-To join the network from a new device, login with the same OICD provider as the account was created with. To join a network as a different user, follow [this guide](https://youtu.be/Vt4PDUXB_fg?t=644).
-
-## Caddy
-
-Caddy is installed to provide a web server for the server.
-It is running in docker with [docker compose](https://caddyserver.com/docs/running#docker-compose) and uses the [caddyserver/cloudflare plugin](https://caddyserver.com/docs/build#docker) to automatically update the DNS records for the server.
-
-This allows the server to be accessed via a custom domain name, caddy then reverse proxies the requests to the internal services. See [this guide](https://youtu.be/Vt4PDUXB_fg?t=214) for more details.
