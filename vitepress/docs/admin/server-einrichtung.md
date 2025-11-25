@@ -49,6 +49,13 @@ Die Schritte 5-7 können auch über die Konsole aktiviert werden:
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```
 
+:::info
+Dieser Befehl kann verwendet werden, um zu prüfen, ob die Ruhezustände aktiviert sind. `masked` bedeutet, dass der Ruhezustand aktiviert ist.
+```bash
+systemctl is-enabled sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
+:::
+
 ## Server Konfiguration
 
 ### 1. Repository klonen

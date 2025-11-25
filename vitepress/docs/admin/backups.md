@@ -10,9 +10,9 @@ Das Backup-System basiert auf drei Komponenten:
 
 **Was wird gesichert:**
 
-- /srv/ # alle Medien und Konfigurationsdateien
-- /home/ # alle Benutzerdaten
-- /mnt/hdd/time_machine/ # Time Machine Backups
+- /srv/ (Medien und Docker-Konfigurationsdateien)
+- /home/ (Benutzerdaten)
+- /mnt/hdd/time_machine/ (Time Machine Backups)
 
 **Was wird NICHT gesichert:**
 
@@ -20,7 +20,7 @@ Das Backup-System basiert auf drei Komponenten:
 
 **Backup-Zeitplan:**
 
-- Täglich um 03:00 Uhr (automatisch via Cron)
+- Täglich um 00:00 Uhr (automatisch via Cron)
 - Retention: unbegrenzt
 
 **Monitoring:**
