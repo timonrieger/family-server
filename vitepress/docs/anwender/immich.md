@@ -1,7 +1,5 @@
 # Immich - Fotos & Videos
 
-![Immich](https://status.fam.timonrieger.de/api/badge/2/status)
-
 [Immich](https://immich.app) ist unsere Lösung für Foto- und Videoverwaltung. Du kannst damit automatische Backups von deinem Smartphone erstellen, Fotos mit der Familie teilen und von überall auf deine Bilder zugreifen.
 
 ## Zugriff auf Immich
