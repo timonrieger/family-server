@@ -8,6 +8,7 @@ Diese Sektion dokumentiert die technische Infrastruktur, Einrichtung und Adminis
 - **Betriebssystem:** Linux mit [Debian 13.1.0 (Trixie)](https://cdimage.debian.org/cdimage/release/13.1.0/amd64/iso-cd/)
 - **Netzwerk:** [Tailscale](https://tailscale.com/)
 - **Virtualisierung:** [Docker](https://www.docker.com/)
+- **Container Updates:** [Watchtower](https://watchtower.nickfedor.com)
 - **Backups:** [Restic](https://restic.net/) (Backup Software) + [Rclone](https://rclone.org/) (Cloud Schnittstelle) + [Storj](https://storj.io/) (Cloud Provider)
 - **Speicher:** [WD RED HDD 4TB](https://www.westerndigital.com/products/internal-drives/wd-red-plus-sata-3-5-hdd?sku=WD40EFZZ)
 - **Monitoring:** [Uptime Kuma](https://uptime.kuma.pet/)
