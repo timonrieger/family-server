@@ -8,7 +8,7 @@ networks:
 
 services:
   gitea-mirror:
-    image: ghcr.io/raylabshq/gitea-mirror:latest
+    image: ghcr.io/raylabshq/gitea-mirror:3
     container_name: gitea-mirror
     restart: unless-stopped
     user: ${PUID:-1000}:${PGID:-1000}
