@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: caddy:2.11.2@sha256:31cac30871bed873ab95ba89b3c9b4440224c8dafeec1a527ef8c7eafc07a1a3
+    image: caddy:2
     container_name: caddy
     build: .
     restart: unless-stopped
