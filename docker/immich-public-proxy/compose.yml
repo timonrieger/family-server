@@ -1,0 +1,14 @@
+services:
+  immich-public-proxy:
+    image: alangrainger/immich-public-proxy:1.14.2@sha256:ed5c7cc406bd26bb1cff327b8a3d8aad35210e45830b620d55f280773b528f3b
+    container_name: immich-public-proxy
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PUBLIC_BASE_URL: https://immich.fam.timonrieger.de
+      IMMICH_URL: http://beelink:2283
+    healthcheck:
+      test: curl -s http://localhost:3000/share/healthcheck -o /dev/null || exit 1
+      start_period: 10s
+      timeout: 5s
