@@ -1,0 +1,14 @@
+name: immichframe
+services:
+  immichframe:
+    container_name: immichframe
+    image: ghcr.io/immichframe/immichframe:v1.0.30.0@sha256:c2dbf1479842650f310733f81e42ceabf41bb318e5841ee31465e95c4d8f6e51
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    environment:
+      TZ: "Europe/Zurich"
+    volumes:
+      - ./custom.css:/app/wwwroot/static/custom.css
