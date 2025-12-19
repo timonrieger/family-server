@@ -1,12 +1,6 @@
-version: "3"
-
-networks:
-  gitea:
-    external: true
-
 services:
   server:
-    image: docker.gitea.com/gitea:1
+    image: docker.gitea.com/gitea:1.25.3@sha256:fee0e5e55da6d2d11186bf39023a772fe63d9deffc0a83283e3d8e5d11c2716a
     container_name: gitea
     restart: unless-stopped
     networks:
@@ -18,3 +12,7 @@ services:
     ports:
       - "3000:3000"
       - "222:22"
+
+networks:
+  gitea:
+    external: true
