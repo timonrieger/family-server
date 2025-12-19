@@ -43,6 +43,6 @@ Um mit der Administration des Servers zu beginnen:
 
 - Speicherplatz prüfen (`df -h`)
 - [Backup-Integrität](./backups#überwachung) testen
-- Anwendungen auf neueste Versionen aktualisieren
-  - Docker: `docker compose pull && docker compose up -d`
-  - Apt: `sudo apt update && sudo apt upgrade -y`
+- Docker Clean up (`docker system prune -a`)
+- Anwendungen auf neueste Versionen aktualisieren (über Docker Image Tags)
+- System Update (`sudo apt update && sudo apt upgrade -y`)
