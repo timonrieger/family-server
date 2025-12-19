@@ -78,26 +78,26 @@
       changed_when: false
 
     - name: Download Docker convenience script
-      get_url:
+      ansible.builtin.get_url:
         url: https://get.docker.com
         dest: /tmp/get-docker.sh
         mode: '0755'
       when: docker_check.rc != 0
 
     - name: Run Docker convenience script
-      command: /tmp/get-docker.sh
+      ansible.builtin.command: /tmp/get-docker.sh
       args:
         creates: /usr/bin/docker
       when: docker_check.rc != 0
 
     - name: Check if Docker service exists
-      command: systemctl list-unit-files | grep docker
+      ansible.builtin.command: systemctl list-unit-files | grep docker
       register: docker_service_check
       failed_when: false
       changed_when: false
 
     - name: Start and enable Docker service
-      systemd:
+      ansible.builtin.systemd:
         name: docker
         state: started
         enabled: true
@@ -106,18 +106,18 @@
         - "'docker.service' in docker_service_check.stdout"
 
     - name: Verify Docker is running
-      command: docker --version
+      ansible.builtin.command: docker --version
       register: docker_version
       changed_when: false
 
     - name: Check if docker group exists
-      command: getent group docker
+      ansible.builtin.command: getent group docker
       register: docker_group_check
       failed_when: false
       changed_when: false
 
     - name: Add user to docker group
-      user:
+      ansible.builtin.user:
         name: "{{ user }}"
         groups: docker
         append: true
@@ -126,7 +126,7 @@
         - docker_group_check.rc == 0
 
     - name: Clean up Docker script
-      file:
+      ansible.builtin.file:
         path: /tmp/get-docker.sh
         state: absent
       when: docker_check.rc != 0
