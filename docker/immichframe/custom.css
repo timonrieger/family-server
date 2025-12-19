@@ -1,9 +1,0 @@
-.date-overlay {
-  color: #FFFFFF;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  padding: 0.25em 0.6em;
-  border-radius: 0.4em;
-}
