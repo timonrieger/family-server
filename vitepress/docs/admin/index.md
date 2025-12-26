@@ -18,8 +18,8 @@ Diese Sektion dokumentiert die technische Infrastruktur, Einrichtung und Adminis
 - **Anwendungen:**
   - [Immich](https://immich.app/) (Fotos)
   - [Jellyfin](https://jellyfin.org/) (Filme, Serien, Musik)
-  - [Gitea](https://gitea.com) (Git Repository)
-  - [Gitea Mirror](https://github.com/RayLabsHQ/gitea-mirror) (Gitea Mirror Tool)
+  - [Gitea](https://gitea.com) (Code Hosting)
+  - [Gitea Mirror](https://github.com/RayLabsHQ/gitea-mirror) (Git Repository Mirror Tool)
 
 ## Schnellstart
 

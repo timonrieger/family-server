@@ -50,7 +50,7 @@ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.ta
 ```
 
 :::info
-Dieser Befehl kann verwendet werden, um zu prüfen, ob die Ruhezustände aktiviert sind. `masked` bedeutet, dass der Ruhezustand aktiviert ist.
+Dieser Befehl kann verwendet werden, um zu prüfen, ob die Ruhezustände aktiviert sind. `masked` bedeutet, dass der Ruhezustand deaktiviert ist.
 ```bash
 systemctl is-enabled sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```
