@@ -71,6 +71,37 @@
         name: "{{ user }}"
         shell: /usr/bin/fish
 
+    - name: Check if cloudflared is installed
+      ansible.builtin.command: which cloudflared
+      register: cloudflared_check
+      failed_when: false
+      changed_when: false
+
+    - name: Ensure /usr/share/keyrings exists
+      ansible.builtin.file:
+        path: /usr/share/keyrings
+        state: directory
+        mode: "0755"
+
+    - name: Import Cloudflare GPG key (cloudflared)
+      ansible.builtin.get_url:
+        url: https://pkg.cloudflare.com/cloudflare-main.gpg
+        dest: /usr/share/keyrings/cloudflare-main.gpg
+        mode: "0644"
+      when: cloudflared_check.rc != 0
+
+    - name: Add Cloudflared apt repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main"
+        state: present
+        filename: cloudflared
+
+    - name: Install cloudflared
+      ansible.builtin.apt:
+        name: cloudflared
+        state: present
+        update_cache: true
+
     - name: Check if Docker is already installed
       ansible.builtin.command: which docker
       register: docker_check
