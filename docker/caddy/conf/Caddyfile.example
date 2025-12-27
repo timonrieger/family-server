@@ -8,16 +8,11 @@
 # Immich (Photos)
 ########################
 immich.fam.timonrieger.de {
-  # Immich Public Proxy paths
-  @public path /share /share/*
-  handle @public {
-    reverse_proxy beelink:3000
-  }
-  
-  handle {
-    reverse_proxy beelink:2283
-  }
-  
+  reverse_proxy beelink:2283
+  import cloudflare
+}
+share.immich.fam.timonrieger.de {
+  reverse_proxy beelink:3002
   import cloudflare
 }
 
