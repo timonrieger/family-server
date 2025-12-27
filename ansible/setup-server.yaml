@@ -3,6 +3,7 @@
   become: true
   vars:
     user: timon
+    cloudflared_tunnel_id: b6cad4cb-bfc4-4cb0-b0e6-2073891d169b
   tasks:
     - name: Ensure prerequisite apt packages are present
       ansible.builtin.apt:
@@ -100,6 +101,70 @@
         name: cloudflared
         state: present
         update_cache: true
+
+    - name: Ensure /etc/cloudflared exists
+      ansible.builtin.file:
+        path: /etc/cloudflared
+        state: directory
+        mode: "0755"
+
+    - name: Check for existing ~/.cloudflared directory
+      ansible.builtin.stat:
+        path: /home/{{ user }}/.cloudflared
+      register: cloudflared_user_dir_stat
+
+    - name: Copy ~/.cloudflared contents to /etc/cloudflared (then remove from user)
+      ansible.builtin.copy:
+        src: /home/{{ user }}/.cloudflared/
+        dest: /etc/cloudflared/
+        remote_src: true
+        owner: root
+        group: root
+        mode: preserve
+        directory_mode: "0755"
+      when: cloudflared_user_dir_stat.stat.isdir
+      notify: Reload systemd and restart cloudflared
+
+    - name: Remove ~/.cloudflared directory from user after copying
+      ansible.builtin.file:
+        path: /home/{{ user }}/.cloudflared
+        state: absent
+      when: cloudflared_user_dir_stat.stat.isdir
+
+    - name: Copy cloudflared config.yml to /etc/cloudflared (authoritative)
+      ansible.builtin.copy:
+        src: files/cloudflare.config.yml
+        dest: /etc/cloudflared/config.yml
+        owner: root
+        group: root
+        mode: "0644"
+        force: true
+      notify: Reload systemd and restart cloudflared
+
+    - name: Check if cloudflared systemd service is installed
+      ansible.builtin.stat:
+        path: /etc/systemd/system/cloudflared.service
+      register: cloudflared_service_unit
+
+    - name: Install cloudflared systemd service (cloudflared service install)
+      ansible.builtin.command: cloudflared service install
+      args:
+        creates: /etc/systemd/system/cloudflared.service
+      when: not cloudflared_service_unit.stat.exists
+      notify: Reload systemd and restart cloudflared
+
+    - name: Ensure cloudflared service is enabled and started
+      ansible.builtin.systemd:
+        name: cloudflared
+        state: started
+        enabled: true
+        daemon_reload: true
+
+    - name: Show cloudflared service status
+      ansible.builtin.command: systemctl status cloudflared --no-pager
+      register: cloudflared_status
+      changed_when: false
+      failed_when: false
 
     - name: Check if Docker is already installed
       ansible.builtin.command: which docker
@@ -206,3 +271,11 @@
         group: "{{ user }}"
         mode: "0750"
         recurse: yes
+
+  handlers:
+    - name: Reload systemd and restart cloudflared
+      ansible.builtin.systemd:
+        name: cloudflared
+        state: restarted
+        enabled: true
+        daemon_reload: true
