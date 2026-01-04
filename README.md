@@ -4,13 +4,15 @@ This repository contains the infrastructure and documentation for a self-hosted 
 
 ## Setup
 
+This project uses [mise](https://mise.jdx.dev) to manage tooling and tasks.
+
 For the initial setup of the project:
 
 ```bash
 mise setup
 ```
 
-## Start VitePress
+## Start Documentation
 
 The documentation is provided with VitePress. How to start the local development server:
 
@@ -18,4 +20,4 @@ The documentation is provided with VitePress. How to start the local development
 mise docs
 ```
 
-The documentation can then be accessed at `http://localhost:5173`.
+The documentation can then be accessed at http://localhost:5173.
