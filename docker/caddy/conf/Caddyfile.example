@@ -11,6 +11,10 @@ immich.fam.timonrieger.de {
   reverse_proxy beelink:2283
   import cloudflare
 }
+immichframe.fam.timonrieger.de {
+  reverse_proxy beelink:8080
+  import cloudflare
+}
 
 ########################
 # Jellyfin (Media)
