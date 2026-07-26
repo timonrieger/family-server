@@ -15,7 +15,7 @@
 
     # One system user per app
     app_users:
-      - { name: immich, uid: 2000, groups: ["family"] } # reads external libraries in the family share
+      - { name: immich, uid: 2000, groups: ["family"] } # reads external libraries in the family share, writes .xmp sidecars there
       - { name: jellyfin, uid: 2001, groups: ["family"] } # reads family movies/music
       - { name: gitea, uid: 2002, groups: [] }
       - { name: mealie, uid: 2003, groups: [] }
@@ -87,6 +87,12 @@
     shared_default_acls:
       - { etype: user, entity: timon, perms: rwx }
       - { etype: group, entity: family, perms: rX }
+
+    # External libraries where Immich writes .xmp metadata sidecars
+    # next to the originals (metadata edits are sidecar-only)
+    immich_external_dirs:
+      - "{{ family_share }}/photos"
+      - "{{ family_share }}/clips"
 
   tasks:
     - name: Ensure 'family' group exists with fixed GID
@@ -185,6 +191,18 @@
         default: true
         state: present
       loop: "{{ shared_dirs | product(shared_default_acls) | list }}"
+
+    # default: false covers the existing tree, default: true makes new files inherit
+    - name: Allow Immich to write sidecars in its external libraries
+      ansible.posix.acl:
+        path: "{{ item.0 }}"
+        etype: user
+        entity: immich
+        permissions: rwX
+        default: "{{ item.1 }}"
+        recursive: true
+        state: present
+      loop: "{{ immich_external_dirs | product([false, true]) | list }}"
 
     - name: Ensure the family group can read all existing shared media
       ansible.builtin.file:

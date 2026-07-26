@@ -18,7 +18,7 @@ services:
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     user: ${PUID}:${PGID}
     group_add:
-      # family group: read access to the external libraries below
+      # family group: access to the external libraries below
       - "${FAMILY_GID}"
     volumes:
       # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
@@ -28,8 +28,8 @@ services:
       - ${PROFILE_LOCATION}:/data/profile
       - ${BACKUP_LOCATION}:/data/backups
       - /etc/localtime:/etc/localtime:ro
-      - /srv/originals/family/photos:/srv/originals/family/photos:ro
-      - /srv/originals/family/clips:/srv/originals/family/clips:ro
+      - /srv/originals/family/photos:/srv/originals/family/photos
+      - /srv/originals/family/clips:/srv/originals/family/clips
     env_file:
       - .env
     ports:
