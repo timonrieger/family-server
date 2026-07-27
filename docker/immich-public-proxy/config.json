@@ -5,8 +5,10 @@
       "Access-Control-Allow-Origin":  "*"
     },
     "maxDownloadQuality": "original",
+    "maxZoomQuality": "preview",
     "downloadedFilename": 0,
     "allowDownload": 1,
+    "downloadFromImmichConcurrencyLimit": 20,
     "allowSlugLinks": true,
     "showHomePage": true,
     "showMetadata": {
@@ -16,6 +18,7 @@
       },
       "exif": {
         "dateTimeOriginal": true,
+        "timeZone": true,
         "fileName": true,
         "dimensions": true,
         "fileSize": true,
@@ -38,16 +41,22 @@
     "customInvalidResponse": false,
     "gallery": {
       "singleImage": false,
+      "singleVideo": false,
       "singleItemAutoOpen": true,
       "showTitle": true,
       "showDescription": false,
-      "groupByDate": false
+      "showExpiryDate": true,
+      "expiryDateFormat": "D MMMM YYYY",
+      "expiryDateLocale": "",
+      "groupByDate": "day",
+      "showDownloadZip": true,
+      "cacheTime": 600
     },
     "lightbox": {
       "showArrows": true,
       "showDownload": true,
       "mobileArrows": false,
-      "autoPlayVideos": false
+      "autoPlayVideos": true
     }
   }
 }
