@@ -245,10 +245,10 @@
         backup: yes
       notify: Restart Samba
 
-    - name: Restart Samba service
+    - name: Ensure Samba service is enabled and started
       ansible.builtin.systemd:
         name: smbd
-        state: restarted
+        state: started
         enabled: yes
 
   handlers:
