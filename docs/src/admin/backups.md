@@ -84,10 +84,10 @@ Zusätzlich zum restic-Backup spiegelt ein nächtlicher rsync-Befehl die Origina
 
 ```bash
 # restic-Backup
-sudo -u restic tail -f /home/restic/backup.log
+sudo -u restic tail /home/restic/backup.log -n 200
 
 # Sekundärer HDD-Mirror
-sudo tail -f /root/mirror.log
+sudo tail /root/mirror.log -n 200
 ```
 
 ## Wiederherstellung
