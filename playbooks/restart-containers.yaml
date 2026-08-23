@@ -27,21 +27,15 @@
     - name: Restart Docker Compose project
       ansible.builtin.command:
         cmd: docker compose up -d --build
-        chdir: "{{ item.0.path | regex_replace('/[^/]+$', '') }}"
+        chdir: "{{ item.0.path | dirname }}"
       loop: "{{ compose_files.files | zip(restart_prompts.results) | list }}"
       loop_control:
         label: "{{ item.0.path }}"
       when: item.1.user_input | default('') | lower == 'y'
-      register: restart_results
-
-    - name: Collect restart summary
-      ansible.builtin.set_fact:
-        restart_summary: "{{ restart_summary | default([]) + [{'name': item.0.path | regex_replace('/[^/]+$', '') | regex_replace('.*/([^/]+)$', '\\1'), 'status': 'Restarted' if (item.1.user_input | default('') | lower == 'y') else 'Skipped'}] }}"
-      loop: "{{ compose_files.files | zip(restart_prompts.results) | list }}"
 
     - name: Show restart summary
       ansible.builtin.debug:
-        msg: "{{ item.status }}: {{ item.name }}"
-      loop: "{{ restart_summary }}"
+        msg: "{{ 'Restarted' if item.1.user_input | default('') | lower == 'y' else 'Skipped' }}: {{ item.0.path | dirname | basename }}"
+      loop: "{{ compose_files.files | zip(restart_prompts.results) | list }}"
       loop_control:
-        label: "{{ item.status }}: {{ item.name }}"
+        label: "{{ item.0.path | dirname | basename }}"

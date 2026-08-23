@@ -5,47 +5,35 @@
     user: timon
     cloudflared_tunnel_id: b6cad4cb-bfc4-4cb0-b0e6-2073891d169b
   tasks:
-    - name: Ensure prerequisite apt packages are present
+    - name: Ensure base apt packages are present
       ansible.builtin.apt:
         name:
           - ca-certificates
           - curl
           - gnupg
+          - neovim
         state: present
         update_cache: true
-
-    - name: Check if Tailscale is installed
-      ansible.builtin.command: which tailscale
-      register: tailscale_check
-      failed_when: false
-      changed_when: false
+        cache_valid_time: 3600
 
     - name: Import Tailscale GPG key
       ansible.builtin.get_url:
         url: https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg
         dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
         mode: '0644'
-      when: tailscale_check.rc != 0
 
     - name: Add Tailscale repository
       ansible.builtin.get_url:
         url: https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list
         dest: /etc/apt/sources.list.d/tailscale.list
         mode: '0644'
-      when: tailscale_check.rc != 0
+      register: tailscale_repo
 
     - name: Install Tailscale
       ansible.builtin.apt:
         name: tailscale
         state: present
-        update_cache: true
-      when: tailscale_check.rc != 0
-
-    - name: Check if Fish Shell is installed
-      ansible.builtin.command: which fish
-      register: fish_check
-      failed_when: false
-      changed_when: false
+        update_cache: "{{ tailscale_repo is changed }}"
 
     - name: Import Fish Shell GPG key
       ansible.builtin.shell: |
@@ -61,42 +49,24 @@
         suites: "/"
         signed_by: /etc/apt/trusted.gpg.d/shells_fish_release_4.gpg
         state: present
+      register: fish_repo
 
     - name: Install Fish Shell
       ansible.builtin.apt:
         name: fish
         state: present
-        update_cache: true
+        update_cache: "{{ fish_repo is changed }}"
 
     - name: Set default shell to fish
       ansible.builtin.user:
         name: "{{ user }}"
         shell: /usr/bin/fish
 
-    - name: Install Neovim
-      ansible.builtin.apt:
-        name: neovim
-        state: present
-        update_cache: true
-
-    - name: Check if cloudflared is installed
-      ansible.builtin.command: which cloudflared
-      register: cloudflared_check
-      failed_when: false
-      changed_when: false
-
-    - name: Ensure /usr/share/keyrings exists
-      ansible.builtin.file:
-        path: /usr/share/keyrings
-        state: directory
-        mode: "0755"
-
     - name: Import Cloudflare GPG key (cloudflared)
       ansible.builtin.get_url:
         url: https://pkg.cloudflare.com/cloudflare-main.gpg
         dest: /usr/share/keyrings/cloudflare-main.gpg
         mode: "0644"
-      when: cloudflared_check.rc != 0
 
     - name: Add Cloudflared apt repository
       ansible.builtin.deb822_repository:
@@ -107,41 +77,19 @@
         components: main
         signed_by: /usr/share/keyrings/cloudflare-main.gpg
         state: present
+      register: cloudflared_repo
 
     - name: Install cloudflared
       ansible.builtin.apt:
         name: cloudflared
         state: present
-        update_cache: true
+        update_cache: "{{ cloudflared_repo is changed }}"
 
     - name: Ensure /etc/cloudflared exists
       ansible.builtin.file:
         path: /etc/cloudflared
         state: directory
         mode: "0755"
-
-    - name: Check for existing ~/.cloudflared directory
-      ansible.builtin.stat:
-        path: /home/{{ user }}/.cloudflared
-      register: cloudflared_user_dir_stat
-
-    - name: Copy ~/.cloudflared contents to /etc/cloudflared (then remove from user)
-      ansible.builtin.copy:
-        src: /home/{{ user }}/.cloudflared/
-        dest: /etc/cloudflared/
-        remote_src: true
-        owner: root
-        group: root
-        mode: preserve
-        directory_mode: "0755"
-      when: cloudflared_user_dir_stat.stat.isdir | default(false)
-      notify: Reload systemd and restart cloudflared
-
-    - name: Remove ~/.cloudflared directory from user after copying
-      ansible.builtin.file:
-        path: /home/{{ user }}/.cloudflared
-        state: absent
-      when: cloudflared_user_dir_stat.stat.isdir | default(false)
 
     - name: Copy cloudflared config.yml to /etc/cloudflared (authoritative)
       ansible.builtin.copy:
@@ -153,16 +101,10 @@
         force: true
       notify: Reload systemd and restart cloudflared
 
-    - name: Check if cloudflared systemd service is installed
-      ansible.builtin.stat:
-        path: /etc/systemd/system/cloudflared.service
-      register: cloudflared_service_unit
-
     - name: Install cloudflared systemd service (cloudflared service install)
       ansible.builtin.command: cloudflared service install
       args:
         creates: /etc/systemd/system/cloudflared.service
-      when: not cloudflared_service_unit.stat.exists
       notify: Reload systemd and restart cloudflared
 
     - name: Ensure cloudflared service is enabled and started
@@ -170,13 +112,6 @@
         name: cloudflared
         state: started
         enabled: true
-        daemon_reload: true
-
-    - name: Show cloudflared service status
-      ansible.builtin.command: systemctl status cloudflared --no-pager
-      register: cloudflared_status
-      changed_when: false
-      failed_when: false
 
     - name: Check if Docker is already installed
       ansible.builtin.command: which docker
@@ -185,58 +120,33 @@
       changed_when: false
 
     - name: Download Docker convenience script
-      get_url:
+      ansible.builtin.get_url:
         url: https://get.docker.com
         dest: /tmp/get-docker.sh
         mode: '0755'
       when: docker_check.rc != 0
 
     - name: Run Docker convenience script
-      command: /tmp/get-docker.sh
+      ansible.builtin.command: /tmp/get-docker.sh
       args:
         creates: /usr/bin/docker
-      when: docker_check.rc != 0
-
-    - name: Check if Docker service exists
-      command: systemctl list-unit-files | grep docker
-      register: docker_service_check
-      failed_when: false
-      changed_when: false
 
     - name: Start and enable Docker service
-      systemd:
+      ansible.builtin.systemd:
         name: docker
         state: started
         enabled: true
-      when:
-        - not ansible_check_mode
-        - "'docker.service' in docker_service_check.stdout"
-
-    - name: Verify Docker is running
-      command: docker --version
-      register: docker_version
-      changed_when: false
-
-    - name: Check if docker group exists
-      command: getent group docker
-      register: docker_group_check
-      failed_when: false
-      changed_when: false
 
     - name: Add user to docker group
-      user:
+      ansible.builtin.user:
         name: "{{ user }}"
         groups: docker
         append: true
-      when:
-        - not ansible_check_mode
-        - docker_group_check.rc == 0
 
     - name: Clean up Docker script
-      file:
+      ansible.builtin.file:
         path: /tmp/get-docker.sh
         state: absent
-      when: docker_check.rc != 0
 
     - name: Ensure fish config directory exists
       ansible.builtin.file:
@@ -255,16 +165,8 @@
         group: "{{ user }}"
         force: true
 
-    # Ownership must match setup-permissions.yaml (structure dir, root-owned)
-    - name: Ensure /srv directory exists
-      ansible.builtin.file:
-        path: /srv
-        state: directory
-        owner: root
-        group: root
-        mode: "0755"
-
-    # timon deploys the repo's docker/ tree here (see synchronize task below)
+    # timon deploys the repo's docker/ tree here (see synchronize task below).
+    # All other /srv ownership is managed exclusively by setup-permissions.yaml.
     - name: Ensure /srv/docker directory exists
       ansible.builtin.file:
         path: /srv/docker
@@ -285,7 +187,7 @@
 
     - name: Apply fstab mounts
       ansible.builtin.command: mount -a
-      when: fstab_copy_result.changed
+      when: fstab_copy_result is changed
 
     # Runs as timon: the config layer (/srv/docker/<app>) is timon-owned, while
     # app DATA dirs belong to the app users and are excluded — ownership there
