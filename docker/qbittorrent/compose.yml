@@ -18,6 +18,7 @@ services:
       - VPN_TYPE=openvpn
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_PORT_FORWARDING=on
+    restart: unless-stopped
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:5.2.3@sha256:b024436f8ca665d16d9a997d26fd27fdf867ee5566ba09f32764e7b2976d3e02
